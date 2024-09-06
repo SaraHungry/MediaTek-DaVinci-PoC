@@ -1,7 +1,10 @@
 import random
 from typing import List
 
+import yaml
 from fastapi import FastAPI, HTTPException
+from fastapi.openapi.utils import get_openapi
+from fastapi.responses import JSONResponse, Response
 
 app = FastAPI()
 
@@ -45,4 +48,32 @@ def get_random_name(adjective: int = 1):
     return random_str
 
 
-# OpenAPI documentation can be viewed at /docs (Swagger UI) or /redoc (ReDoc)
+# endpoint to serve OpenAPI YAML
+@app.get("/openapi.yaml", include_in_schema=False)
+async def openapi_yaml():
+    openapi_json = get_openapi(
+        title=app.title,
+        version=app.version,
+        description=app.description,
+        routes=app.routes,
+    )
+    openapi_yaml = yaml.dump(openapi_json, sort_keys=False)
+    return Response(content=openapi_yaml, media_type="application/vnd.oai.openapi")
+
+
+@app.get("/config.json", summary="Get config file", include_in_schema=False)
+async def get_config_file():
+    return JSONResponse(
+        content={
+            "id": "random-name",
+            "schema_version": "v1",
+            "name_for_human": "random-name",
+            "name_for_model": "random-name",
+            "description_for_human": "generate random name",
+            "description_for_model": "generate random name",
+            "api": {
+                "type": "openapi",
+                "url": "https://mediatek-davinci-poc.onrender.com/weather.yaml",
+            },
+        }
+    )
