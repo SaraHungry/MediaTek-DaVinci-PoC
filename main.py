@@ -73,7 +73,7 @@ async def get_config_file():
             "description_for_model": "generate random name",
             "api": {
                 "type": "openapi",
-                "url": "https://mediatek-davinci-poc.onrender.com/weather.yaml",
+                "url": "https://mediatek-davinci-poc.onrender.com/openapi.yaml",
             },
         }
     )
