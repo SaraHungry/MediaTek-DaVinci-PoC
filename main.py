@@ -58,7 +58,7 @@ async def openapi_yaml():
         routes=app.routes,
     )
     openapi_yaml = yaml.dump(openapi_json, sort_keys=False)
-    return Response(content=openapi_yaml, media_type="application/vnd.oai.openapi")
+    return Response(content=openapi_yaml, media_type="text/plain")
 
 
 @app.get("/config.json", summary="Get config file", include_in_schema=False)
