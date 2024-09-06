@@ -1,6 +1,7 @@
-from fastapi import FastAPI, HTTPException
-from typing import List
 import random
+from typing import List
+
+from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
 
@@ -41,7 +42,7 @@ def get_random_name(adjective: int = 1):
     random_noun = random.choice(nouns)
 
     random_str = f"{random_adjectives}的{random_noun}"
-    return {"random_string": random_str}
+    return random_str
 
 
 # OpenAPI documentation can be viewed at /docs (Swagger UI) or /redoc (ReDoc)
