@@ -61,6 +61,7 @@ def get_random_name(adjective: int = 1):
 async def openapi_yaml():
     openapi_json = get_openapi(
         title=app.title,
+        servers=app.servers,
         version=app.version,
         description=app.description,
         routes=app.routes,
