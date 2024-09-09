@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
 from fastapi.responses import JSONResponse, Response
 
-app = FastAPI()
+app = FastAPI(servers={"url": "https://mediatek-davinci-poc.onrender.com"})
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://prod.dvcbot.net"],  # Specific allowed origin
