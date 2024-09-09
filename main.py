@@ -3,10 +3,18 @@ from typing import List
 
 import yaml
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
 from fastapi.responses import JSONResponse, Response
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://prod.dvcbot.net"],  # Specific allowed origin
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
 
 
 @app.get(
@@ -70,7 +78,7 @@ async def get_config_file():
             "name_for_human": "random-name",
             "name_for_model": "random-name",
             "description_for_human": "generate random name",
-            "description_for_model": "generate random name",
+            "description_for_model": "call this api to generate random name",
             "api": {
                 "type": "openapi",
                 "url": "https://mediatek-davinci-poc.onrender.com/openapi.yaml",
